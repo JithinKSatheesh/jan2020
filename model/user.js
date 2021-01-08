@@ -38,14 +38,16 @@ const userSchema = new mongoose.Schema({
     //     type: Array,
     //     default: []
     // },
-    posts:{
+    posts:[{
         type:ObjectId,
         ref:'Posts', 
-    },
-    favourites:{
+        unique: true,
+    }],
+    favourites:[{
         type:ObjectId,
         ref:'Posts', 
-    },
+        unique: true,
+    }],
 }, { timestamps: true })
 
 

@@ -10,27 +10,22 @@ const {
     update, 
     productById, 
     list, 
+    listAll,
     getUserPosts
-    // listRelated, 
-    // listCategories, 
-    // listBySearch,
-    // photo
 
     } = require('../controller/posts')
 
-router.get('/posts', list)
-router.get('/posts/:postId', read)
+router.get('/posts', listAll)
+router.get('/posts/notmine/:userId', list)  //list posts except user post
 router.get('/posts/user/:userId',getUserPosts)
-router.post('/post/create/:userId', requireSignin, isAuth, create)
-// router.get('/posts/user/favourites/:userId',getUserFavourites)
 
+
+// route contain 'post' without 's'
+
+router.get('/post/view/:postId', read)
+router.post('/post/create/:userId', requireSignin, isAuth, create)
 router.delete('/post/:postId/:userId', requireSignin, isAuth, remove)
 router.put('/post/:postId/:userId', requireSignin, isAuth, update)
-
-// router.get('/posts/categories', listCategories)
-// router.get('/post/related/:postId', listRelated)
-// router.post('/posts/by/search', listBySearch)
-// router.get('/post/photo/:postId', photo)
 
 
 router.param("userId", userById)

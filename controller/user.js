@@ -50,3 +50,44 @@ exports.update =(req,res)=>{
         }
     )
 }
+
+
+
+exports.setUserFavourites = (req,res)=>{
+    User.findById(req.profile._id)
+        .exec((err,user)=>{
+            // console.log( user.favourites.indexOf(req.product._id))
+            if(user.favourites.indexOf(req.product._id) < 0){
+                user.favourites.push(req.product._id)
+                user.save((err,data)=>{
+                    if(err){
+                        return res.status(400).json({
+                            error:"Fail to set favourites"
+                        })
+                    }
+                    res.json(data)
+                })
+            }
+            else
+            {
+                res.status(400).json({
+                    error:"Favourite already marked"
+                })
+            }
+            
+        })
+}
+
+
+exports.getUserFavourites = (req,res)=>{
+    User.findById(req.profile._id)
+        .populate('favourites')
+        .exec((err,user)=>{   
+            if(err){
+                return res.status(400).json({
+                    error:"Fail to set favourites"
+                })
+            }
+            res.json(user.favourites)
+        })
+}
