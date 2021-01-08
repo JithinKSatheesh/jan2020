@@ -21,7 +21,9 @@ const postRoutes = require('./routes/posts')
 require('dotenv').config()
 
 //db
-mongoose.connect("mongodb://localhost/jan",{
+database_URL = 'mongodb+srv://user1:user123@cluster0.cgx81.mongodb.net/quizapp?retryWrites=true&w=majority'
+
+mongoose.connect(database_URL,{
     useNewUrlParser:true,
     useCreateIndex:true
 }).then(()=>{
